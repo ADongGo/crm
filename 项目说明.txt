@@ -1,0 +1,11 @@
+1.开启虚拟机,运行./redis-server redis.conf(让redis在后台运行)
+2../redis-cli -h 192.168.18.191 -p 6379
+(centos6命令)
+关闭防火墙
+       service iptables stop
+ 
+永久性关闭防火墙
+        chkconfig iptables off 
+		
+查看防火墙状态
+        chkconfig --list | grep iptables

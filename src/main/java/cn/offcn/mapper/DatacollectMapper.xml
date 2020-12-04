@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.offcn.mapper.DatacollectMapper" >
+  <resultMap id="BaseResultMap" type="cn.offcn.entity.Datacollect" >
+    <id column="daid" property="daid" jdbcType="INTEGER" />
+    <result column="dacname" property="dacname" jdbcType="VARCHAR" />
+    <result column="daturnover" property="daturnover" jdbcType="DOUBLE" />
+    <result column="datime" property="datime" jdbcType="DATE" />
+    <result column="dabusiness" property="dabusiness" jdbcType="VARCHAR" />
+    <result column="dasuperiority" property="dasuperiority" jdbcType="VARCHAR" />
+    <result column="dainforiority" property="dainforiority" jdbcType="VARCHAR" />
+    <result column="dasort" property="dasort" jdbcType="INTEGER" />
+    <result column="empcount" property="empcount" jdbcType="INTEGER" />
+    <result column="buildtime" property="buildtime" jdbcType="DATE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="daother" property="daother" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    daid, dacname, daturnover, datime, dabusiness, dasuperiority, dainforiority, dasort, 
+    empcount, buildtime, remark, daother
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.offcn.entity.DatacollectExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from datacollect
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from datacollect
+    where daid = #{daid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from datacollect
+    where daid = #{daid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.offcn.entity.DatacollectExample" >
+    delete from datacollect
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.offcn.entity.Datacollect" >
+    insert into datacollect (daid, dacname, daturnover, 
+      datime, dabusiness, dasuperiority, 
+      dainforiority, dasort, empcount, 
+      buildtime, remark, daother
+      )
+    values (#{daid,jdbcType=INTEGER}, #{dacname,jdbcType=VARCHAR}, #{daturnover,jdbcType=DOUBLE}, 
+      #{datime,jdbcType=DATE}, #{dabusiness,jdbcType=VARCHAR}, #{dasuperiority,jdbcType=VARCHAR}, 
+      #{dainforiority,jdbcType=VARCHAR}, #{dasort,jdbcType=INTEGER}, #{empcount,jdbcType=INTEGER}, 
+      #{buildtime,jdbcType=DATE}, #{remark,jdbcType=VARCHAR}, #{daother,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.offcn.entity.Datacollect" >
+    insert into datacollect
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="daid != null" >
+        daid,
+      </if>
+      <if test="dacname != null" >
+        dacname,
+      </if>
+      <if test="daturnover != null" >
+        daturnover,
+      </if>
+      <if test="datime != null" >
+        datime,
+      </if>
+      <if test="dabusiness != null" >
+        dabusiness,
+      </if>
+      <if test="dasuperiority != null" >
+        dasuperiority,
+      </if>
+      <if test="dainforiority != null" >
+        dainforiority,
+      </if>
+      <if test="dasort != null" >
+        dasort,
+      </if>
+      <if test="empcount != null" >
+        empcount,
+      </if>
+      <if test="buildtime != null" >
+        buildtime,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="daother != null" >
+        daother,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="daid != null" >
+        #{daid,jdbcType=INTEGER},
+      </if>
+      <if test="dacname != null" >
+        #{dacname,jdbcType=VARCHAR},
+      </if>
+      <if test="daturnover != null" >
+        #{daturnover,jdbcType=DOUBLE},
+      </if>
+      <if test="datime != null" >
+        #{datime,jdbcType=DATE},
+      </if>
+      <if test="dabusiness != null" >
+        #{dabusiness,jdbcType=VARCHAR},
+      </if>
+      <if test="dasuperiority != null" >
+        #{dasuperiority,jdbcType=VARCHAR},
+      </if>
+      <if test="dainforiority != null" >
+        #{dainforiority,jdbcType=VARCHAR},
+      </if>
+      <if test="dasort != null" >
+        #{dasort,jdbcType=INTEGER},
+      </if>
+      <if test="empcount != null" >
+        #{empcount,jdbcType=INTEGER},
+      </if>
+      <if test="buildtime != null" >
+        #{buildtime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="daother != null" >
+        #{daother,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.offcn.entity.DatacollectExample" resultType="java.lang.Integer" >
+    select count(*) from datacollect
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update datacollect
+    <set >
+      <if test="record.daid != null" >
+        daid = #{record.daid,jdbcType=INTEGER},
+      </if>
+      <if test="record.dacname != null" >
+        dacname = #{record.dacname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.daturnover != null" >
+        daturnover = #{record.daturnover,jdbcType=DOUBLE},
+      </if>
+      <if test="record.datime != null" >
+        datime = #{record.datime,jdbcType=DATE},
+      </if>
+      <if test="record.dabusiness != null" >
+        dabusiness = #{record.dabusiness,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dasuperiority != null" >
+        dasuperiority = #{record.dasuperiority,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dainforiority != null" >
+        dainforiority = #{record.dainforiority,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dasort != null" >
+        dasort = #{record.dasort,jdbcType=INTEGER},
+      </if>
+      <if test="record.empcount != null" >
+        empcount = #{record.empcount,jdbcType=INTEGER},
+      </if>
+      <if test="record.buildtime != null" >
+        buildtime = #{record.buildtime,jdbcType=DATE},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.daother != null" >
+        daother = #{record.daother,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update datacollect
+    set daid = #{record.daid,jdbcType=INTEGER},
+      dacname = #{record.dacname,jdbcType=VARCHAR},
+      daturnover = #{record.daturnover,jdbcType=DOUBLE},
+      datime = #{record.datime,jdbcType=DATE},
+      dabusiness = #{record.dabusiness,jdbcType=VARCHAR},
+      dasuperiority = #{record.dasuperiority,jdbcType=VARCHAR},
+      dainforiority = #{record.dainforiority,jdbcType=VARCHAR},
+      dasort = #{record.dasort,jdbcType=INTEGER},
+      empcount = #{record.empcount,jdbcType=INTEGER},
+      buildtime = #{record.buildtime,jdbcType=DATE},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      daother = #{record.daother,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.offcn.entity.Datacollect" >
+    update datacollect
+    <set >
+      <if test="dacname != null" >
+        dacname = #{dacname,jdbcType=VARCHAR},
+      </if>
+      <if test="daturnover != null" >
+        daturnover = #{daturnover,jdbcType=DOUBLE},
+      </if>
+      <if test="datime != null" >
+        datime = #{datime,jdbcType=DATE},
+      </if>
+      <if test="dabusiness != null" >
+        dabusiness = #{dabusiness,jdbcType=VARCHAR},
+      </if>
+      <if test="dasuperiority != null" >
+        dasuperiority = #{dasuperiority,jdbcType=VARCHAR},
+      </if>
+      <if test="dainforiority != null" >
+        dainforiority = #{dainforiority,jdbcType=VARCHAR},
+      </if>
+      <if test="dasort != null" >
+        dasort = #{dasort,jdbcType=INTEGER},
+      </if>
+      <if test="empcount != null" >
+        empcount = #{empcount,jdbcType=INTEGER},
+      </if>
+      <if test="buildtime != null" >
+        buildtime = #{buildtime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="daother != null" >
+        daother = #{daother,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where daid = #{daid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.offcn.entity.Datacollect" >
+    update datacollect
+    set dacname = #{dacname,jdbcType=VARCHAR},
+      daturnover = #{daturnover,jdbcType=DOUBLE},
+      datime = #{datime,jdbcType=DATE},
+      dabusiness = #{dabusiness,jdbcType=VARCHAR},
+      dasuperiority = #{dasuperiority,jdbcType=VARCHAR},
+      dainforiority = #{dainforiority,jdbcType=VARCHAR},
+      dasort = #{dasort,jdbcType=INTEGER},
+      empcount = #{empcount,jdbcType=INTEGER},
+      buildtime = #{buildtime,jdbcType=DATE},
+      remark = #{remark,jdbcType=VARCHAR},
+      daother = #{daother,jdbcType=VARCHAR}
+    where daid = #{daid,jdbcType=INTEGER}
+  </update>
+  <select id="getInfoGroup" resultMap="BaseResultMap">
+        select * from datacollect group by dacname;
+  </select>
+
+  <select id="getOneByCname" resultMap="BaseResultMap" parameterType="cn.offcn.entity.Datacollect">
+    select * from datacollect
+    <where>
+      <if test="datime == null">
+        dacname=#{dacname} order by datime desc limit 0,1;
+      </if>
+      <if test="datime != null">
+        dacname=#{dacname}  and datime=#{datime}
+      </if>
+    </where>
+  </select>
+
+
+  <select id="getInfoBydacname" resultMap="BaseResultMap">
+    select * from datacollect where dacname=#{dacname};
+  </select>
+</mapper>

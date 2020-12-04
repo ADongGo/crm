@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.offcn.mapper.MsgMapper" >
+  <resultMap id="BaseResultMap" type="cn.offcn.entity.Msg" >
+    <id column="msgid" property="msgid" jdbcType="INTEGER" />
+    <result column="sendp" property="sendp" jdbcType="INTEGER" />
+    <result column="recvp" property="recvp" jdbcType="INTEGER" />
+    <result column="mark" property="mark" jdbcType="INTEGER" />
+    <result column="msgcontent" property="msgcontent" jdbcType="VARCHAR" />
+    <result column="msgtime" property="msgtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    msgid, sendp, recvp, mark, msgcontent, msgtime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.offcn.entity.MsgExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from msg
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from msg
+    where msgid = #{msgid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from msg
+    where msgid = #{msgid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.offcn.entity.MsgExample" >
+    delete from msg
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.offcn.entity.Msg" >
+    insert into msg (msgid, sendp, recvp, 
+      mark, msgcontent, msgtime
+      )
+    values (#{msgid,jdbcType=INTEGER}, #{sendp,jdbcType=INTEGER}, #{recvp,jdbcType=INTEGER}, 
+      #{mark,jdbcType=INTEGER}, #{msgcontent,jdbcType=VARCHAR}, #{msgtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.offcn.entity.Msg" >
+    insert into msg
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="msgid != null" >
+        msgid,
+      </if>
+      <if test="sendp != null" >
+        sendp,
+      </if>
+      <if test="recvp != null" >
+        recvp,
+      </if>
+      <if test="mark != null" >
+        mark,
+      </if>
+      <if test="msgcontent != null" >
+        msgcontent,
+      </if>
+      <if test="msgtime != null" >
+        msgtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="msgid != null" >
+        #{msgid,jdbcType=INTEGER},
+      </if>
+      <if test="sendp != null" >
+        #{sendp,jdbcType=INTEGER},
+      </if>
+      <if test="recvp != null" >
+        #{recvp,jdbcType=INTEGER},
+      </if>
+      <if test="mark != null" >
+        #{mark,jdbcType=INTEGER},
+      </if>
+      <if test="msgcontent != null" >
+        #{msgcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="msgtime != null" >
+        #{msgtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.offcn.entity.MsgExample" resultType="java.lang.Integer" >
+    select count(*) from msg
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update msg
+    <set >
+      <if test="record.msgid != null" >
+        msgid = #{record.msgid,jdbcType=INTEGER},
+      </if>
+      <if test="record.sendp != null" >
+        sendp = #{record.sendp,jdbcType=INTEGER},
+      </if>
+      <if test="record.recvp != null" >
+        recvp = #{record.recvp,jdbcType=INTEGER},
+      </if>
+      <if test="record.mark != null" >
+        mark = #{record.mark,jdbcType=INTEGER},
+      </if>
+      <if test="record.msgcontent != null" >
+        msgcontent = #{record.msgcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msgtime != null" >
+        msgtime = #{record.msgtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update msg
+    set msgid = #{record.msgid,jdbcType=INTEGER},
+      sendp = #{record.sendp,jdbcType=INTEGER},
+      recvp = #{record.recvp,jdbcType=INTEGER},
+      mark = #{record.mark,jdbcType=INTEGER},
+      msgcontent = #{record.msgcontent,jdbcType=VARCHAR},
+      msgtime = #{record.msgtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.offcn.entity.Msg" >
+    update msg
+    <set >
+      <if test="sendp != null" >
+        sendp = #{sendp,jdbcType=INTEGER},
+      </if>
+      <if test="recvp != null" >
+        recvp = #{recvp,jdbcType=INTEGER},
+      </if>
+      <if test="mark != null" >
+        mark = #{mark,jdbcType=INTEGER},
+      </if>
+      <if test="msgcontent != null" >
+        msgcontent = #{msgcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="msgtime != null" >
+        msgtime = #{msgtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where msgid = #{msgid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.offcn.entity.Msg" >
+    update msg
+    set sendp = #{sendp,jdbcType=INTEGER},
+      recvp = #{recvp,jdbcType=INTEGER},
+      mark = #{mark,jdbcType=INTEGER},
+      msgcontent = #{msgcontent,jdbcType=VARCHAR},
+      msgtime = #{msgtime,jdbcType=TIMESTAMP}
+    where msgid = #{msgid,jdbcType=INTEGER}
+  </update>
+</mapper>

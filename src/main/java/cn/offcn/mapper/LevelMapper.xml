@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.offcn.mapper.LevelMapper" >
+  <resultMap id="BaseResultMap" type="cn.offcn.entity.Level" >
+    <id column="jid" property="jid" jdbcType="INTEGER" />
+    <result column="jname" property="jname" jdbcType="VARCHAR" />
+    <result column="jdis" property="jdis" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    jid, jname, jdis
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.offcn.entity.LevelExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from level
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from level
+    where jid = #{jid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from level
+    where jid = #{jid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.offcn.entity.LevelExample" >
+    delete from level
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.offcn.entity.Level" >
+    insert into level (jid, jname, jdis
+      )
+    values (#{jid,jdbcType=INTEGER}, #{jname,jdbcType=VARCHAR}, #{jdis,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.offcn.entity.Level" >
+    insert into level
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jid != null" >
+        jid,
+      </if>
+      <if test="jname != null" >
+        jname,
+      </if>
+      <if test="jdis != null" >
+        jdis,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jid != null" >
+        #{jid,jdbcType=INTEGER},
+      </if>
+      <if test="jname != null" >
+        #{jname,jdbcType=VARCHAR},
+      </if>
+      <if test="jdis != null" >
+        #{jdis,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.offcn.entity.LevelExample" resultType="java.lang.Integer" >
+    select count(*) from level
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update level
+    <set >
+      <if test="record.jid != null" >
+        jid = #{record.jid,jdbcType=INTEGER},
+      </if>
+      <if test="record.jname != null" >
+        jname = #{record.jname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jdis != null" >
+        jdis = #{record.jdis,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update level
+    set jid = #{record.jid,jdbcType=INTEGER},
+      jname = #{record.jname,jdbcType=VARCHAR},
+      jdis = #{record.jdis,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.offcn.entity.Level" >
+    update level
+    <set >
+      <if test="jname != null" >
+        jname = #{jname,jdbcType=VARCHAR},
+      </if>
+      <if test="jdis != null" >
+        jdis = #{jdis,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where jid = #{jid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.offcn.entity.Level" >
+    update level
+    set jname = #{jname,jdbcType=VARCHAR},
+      jdis = #{jdis,jdbcType=VARCHAR}
+    where jid = #{jid,jdbcType=INTEGER}
+  </update>
+</mapper>
